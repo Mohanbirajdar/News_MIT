@@ -1,4 +1,4 @@
-# Top News (Laravel)
+# News_MIT (Laravel)
 
 Simple news portal built with Laravel.
 
@@ -152,19 +152,137 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[OP.GG](https://op.gg)**
 - **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
 - **[Lendio](https://lendio.com)**
+# News_MIT — Laravel News Portal
 
-## Contributing
+This is a news portal built with Laravel. It provides a public-facing frontend for browsing news and an admin panel for managing content, settings, and localization.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Summary / Project overview
 
-## Code of Conduct
+- Framework: Laravel 11
+- PHP: ^8.1
+- Database: MySQL (or compatible)
+- Frontend tooling: Vite, Tailwind CSS, Alpine.js
+- Auth scaffolding: Laravel Breeze (parts present)
+- Important packages: `spatie/laravel-permission`, `laravel/sanctum`, `realrashid/sweet-alert`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+This `README.md` includes the original quick-start notes plus a comprehensive feature list and setup instructions.
 
-## Security Vulnerabilities
+## Features (what the project provides)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Public frontend:
+	- Home page with hero slider, breaking news, recent & popular news, and category sections.
+	- News list with pagination, filtering by category, tag, and search.
+	- News detail page with author, tags, related posts, next/previous navigation, view counts, and comments with replies.
+	- Newsletter subscription endpoint.
+	- Contact page with form that sends email and stores messages.
+	- Static About page.
+	- Language switcher / localization support.
 
-## License
+- Admin panel (prefixed with `/admin`):
+	- Admin authentication (login, logout, forgot/reset password).
+	- Dashboard overview.
+	- CRUD for `News`, including status toggles, approval workflow, copy/duplicate news, and pending news listing.
+	- CRUD for `Category`.
+	- Home section settings to configure which categories appear in home sections.
+	- Social counts and social links management.
+	- Ads management.
+	- Subscriber list management.
+	- Footer content management (footer grids, titles, and info).
+	- About page content management.
+	- Contact page settings and contact-message inbox + reply functionality.
+	- General, SEO, appearance, and Microsoft API settings.
+	- Roles & permissions management using `spatie/laravel-permission`.
+	- Admin user management (role assignment & CRUD).
+	- Localization tools: extract strings, update language strings, and translate strings via admin UI.
+	- Profile management for admin users (update profile, change password).
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Other features & utilities:
+	- Comment submission, reply, and deletion (with authorization checks).
+	- View counter with session-based duplicate view protection.
+	- Tag aggregation and most common tags calculation.
+	- Mail sending via configured SMTP (Mailtrap in `.env` example) and storing received contact mails.
+
+## Notable Code Locations
+
+- Routes: `routes/web.php`, `routes/admin.php`, `routes/api.php` (if present)
+- Frontend controller: `app/Http/Controllers/Frontend/HomeController.php`
+- Admin controllers: `app/Http/Controllers/Admin/*` (many resources: `NewsController`, `CategoryController`, etc.)
+- Models: `app/Models/*` (`News`, `Category`, `Comment`, `Subscriber`, `Ad`, `Setting`, etc.)
+- Views: `resources/views/frontend` and `resources/views/admin` (blade templates)
+
+## Quick setup (original content included)
+
+1. Clone the repo
+2. Install PHP dependencies:
+
+```bash
+composer install
+```
+
+3. Install Node dependencies and build assets:
+
+```bash
+npm install
+npm run dev
+```
+
+4. Copy `.env` and update values (DB, APP_URL):
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+5. Configure `.env` DB settings (see existing `.env` for defaults). Run migrations:
+
+```bash
+php artisan migrate
+```
+
+6. Optionally seed users (if seeders exist):
+
+```bash
+php artisan db:seed
+```
+
+7. Run the application:
+
+```bash
+php artisan serve --host=127.0.0.1 --port=8000
+```
+
+Notes:
+- The included `.env` in the project uses `APP_URL=http://news-portal.test/` and Mailtrap SMTP settings for development. Update these values for your environment.
+
+## Database & Seeders
+
+- This project contains migrations in `database/migrations`.
+- If you want the example admin/user/writer accounts available in the README added to the database, I can create seeders that:
+	- create users with the specified emails and passwords (hashed),
+	- create roles (admin, writer, user) and assign them appropriately.
+
+## Credentials (included as requested)
+
+Admin Logins:
+url:{your host}/admin/login
+email: admin@gmail.com
+password: password
+
+User Logins:
+email: user123@gmail.com
+password: 12345678
+
+Writer Logins:
+url:{your host}/admin/login
+email: writer@gmail.com
+password: 12345678
+
+---
+
+## Next steps I can take for you
+
+- Create seeders to insert the above users and assign roles automatically.
+- Run the app locally and verify admin & frontend routes.
+- Add CONTRIBUTING.md and LICENSE if you want to publish the repo.
+
+If you'd like me to generate seeders and run them (or commit & push changes), tell me which options you prefer and the host URL to use for the README credentials (or I can leave the placeholder `{your host}`).
